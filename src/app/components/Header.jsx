@@ -3,9 +3,14 @@
 import React from "react";
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
+import { FaHeart } from "react-icons/fa";
 import { useCartStore } from "@/app/store/cartStore";
+import { useFavoritesStore } from "@/app/store/favoritesStore";
 
 const Header = () => {
+  const favorites = useFavoritesStore((state) => state.favorites);
+  const favoritesCount = favorites.length;
+
   return (
     <header className="sticky top-0 z-50 bg-white" style={{ gridColumn: "full-bleed" }}>
       <div className="grid grid-cols-subgrid" style={{ gridColumn: "content" }}>
@@ -25,9 +30,14 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Right: Cart */}
-          <div className="sm:mt-0 ml-auto text-orange-500 text-4xl sm:text-5xl relative">
-            <Link href="/payment">
+          {/* Right: Favorites + Cart */}
+          <div className="flex items-center gap-6 sm:gap-8 ml-auto text-orange-500">
+            <Link href="/favorites" className="relative text-3xl sm:text-4xl">
+              <FaHeart className="hover:scale-110 transition-transform duration-200 cursor-pointer" />
+              {favoritesCount > 0 && <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">{favoritesCount}</span>}
+            </Link>
+
+            <Link href="/payment" className="relative text-4xl sm:text-5xl">
               <IoCartOutline className="hover:scale-110 transition-transform duration-200 cursor-pointer" />
               <CartBadge />
             </Link>
@@ -43,7 +53,7 @@ const CartBadge = () => {
   const cart = useCartStore((state) => state.cart);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  if (totalItems === 0) return null; // Vis ikke badge hvis tom
+  if (totalItems === 0) return null;
 
   return <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">{totalItems}</span>;
 };
