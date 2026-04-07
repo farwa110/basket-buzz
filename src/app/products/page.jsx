@@ -1,16 +1,13 @@
 import Products from "../components/Products";
 
 export default async function Page({ searchParams }) {
-  const { category, sort } = await searchParams;
-
-  console.log("search: ", category);
-  console.log("sort: ", sort);
+  const { category } = await searchParams;
 
   const datacat = await fetch("https://dummyjson.com/products/categories");
   const categories = await datacat.json();
 
-  const data = category ? await fetch(`https://dummyjson.com/products/category/${category}?limit=50&sortBy=${sort}&${sort === "rating" ? "order=desc" : "order=asc"}`) : await fetch("https://dummyjson.com/products?limit=50");
-  // sort ? data.toSorted((b, a) => a[type] - b[type]) : s;
+  const data = category ? await fetch(`https://dummyjson.com/products/category/${category}?limit=50`) : await fetch("https://dummyjson.com/products?limit=50");
+
   const products = await data.json();
 
   return (

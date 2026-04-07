@@ -3,7 +3,7 @@ import React from "react";
 import SingleViewData from "@/app/components/SingleViewData";
 import SingleText from "@/app/components/SingleText";
 import RatingContainer from "@/app/components/RatingContainer";
-import CardBox from "@/app/components/CardBox";
+// import CardBox from "@/app/components/CardBox";
 
 export default async function Page({ params }) {
   const { id } = await params;
@@ -15,8 +15,9 @@ export default async function Page({ params }) {
     <main>
       <div className="flex flex-col lg:flex-row gap-4">
         <SingleViewData mainImage={data.images} thumbnailImages={data.thumbnail} />
-        <SingleText id={data.id} title={data.title} brand={data.brand} category={data.category} description={data.description} price={data.price} rating={data.rating} discount={data.discountPercentage} />
-        <CardBox />
+        {/* <SingleText id={data.id} title={data.title} brand={data.brand} category={data.category} description={data.description} price={data.price} rating={data.rating} discount={data.discountPercentage} /> */}
+        <SingleText id={data.id} title={data.title} brand={data.brand} category={data.category} description={data.description} price={data.price} rating={data.rating} discount={data.discountPercentage} thumbnail={data.thumbnail} stock={data.stock} shippingInformation={data.shippingInformation} returnPolicy={data.returnPolicy} availabilityStatus={data.availabilityStatus} />
+        {/* <CardBox /> */}
         {/* må ikke rør cardbox */}
       </div>
       <div>
