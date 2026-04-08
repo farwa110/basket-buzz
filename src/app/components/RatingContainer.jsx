@@ -1,3 +1,4 @@
+"use client";
 import RatingCard from "./RatingCard";
 import avatarImg from "@/app/assets/avatar.png";
 

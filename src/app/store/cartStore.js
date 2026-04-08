@@ -7,7 +7,7 @@ import { persist } from "zustand/middleware"; // persist gemmer state i localSto
 export const useCartStore = create(
   persist(
     (set) => ({
-      // 🛒 Initial state: en tom kurv
+      //  Initial state: en tom kurv
       cart: [],
 
       // ➕ Funktion til at tilføje produkter til kurven
@@ -29,25 +29,25 @@ export const useCartStore = create(
           };
         }),
 
-      // 🔁 Funktion til at opdatere antallet (quantity) af en specifik vare
+      //  Funktion til at opdatere antallet (quantity) af en specifik vare
       updateQty: (id, newQty) =>
         set((state) => ({
           cart: state.cart.map((item) => (item.id === id ? { ...item, quantity: newQty } : item)),
         })),
 
-      // 🗑️ Funktion til at fjerne et produkt helt fra kurven
+      //  Funktion til at fjerne et produkt helt fra kurven
       removeFromCart: (id) =>
         set((state) => ({
           cart: state.cart.filter((item) => item.id !== id),
         })),
 
-      // ❌ Funktion til at rydde hele kurven
+      //  Funktion til at rydde hele kurven
       clearCart: () => set({ cart: [] }),
     }),
 
     // persist-konfiguration
     {
       name: "cart-storage", // Navnet på nøglen der bruges i localStorage (kan ses i DevTools > Application > Local Storage)
-    }
-  )
+    },
+  ),
 );
