@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FaHeart, FaRegHeart, FaStar, FaRegStar } from "react-icons/fa";
+import { useState } from "react";
 
 import { useFavoritesStore } from "@/app/store/favoritesStore";
 import { useCartStore } from "@/app/store/cartStore";
@@ -32,7 +33,7 @@ const ProductCard = (props) => {
 
   const discountAmount = (props.price * props.discount) / 100;
   const discountedPrice = props.price - discountAmount;
-
+  const [isAdding, setIsAdding] = useState(false);
   return (
     <li className="bg-gray-100 shadow-2xl rounded-2xl flex flex-col h-full overflow-hidden">
       <Link href={`/products/${props.id}`} className="flex flex-col flex-1">
@@ -87,21 +88,36 @@ const ProductCard = (props) => {
       </Link>
 
       {/* Button always stays aligned at bottom */}
+
       <div className="p-4 pt-0">
         <button
-          onClick={() =>
-            addToCart({
-              id: props.id,
-              title: props.title,
-              price: parseFloat(discountedPrice.toFixed(2)),
-              quantity: 1,
-              discountPercentage: props.discount,
-              image: props.img,
-            })
-          }
-          className="bg-[#F27F3D] rounded-lg text-white font-bold py-2 px-4 hover:bg-orange-600 transition duration-300 ease-in-out w-full"
+          onClick={() => {
+            setIsAdding(true);
+
+            setTimeout(() => {
+              addToCart({
+                id: props.id,
+                title: props.title,
+                price: parseFloat(discountedPrice.toFixed(2)),
+                quantity: 1,
+                discountPercentage: props.discount,
+                image: props.img,
+              });
+
+              setIsAdding(false);
+            }, 600); // fake delay for UX
+          }}
+          disabled={isAdding}
+          className="bg-[#F27F3D] rounded-lg text-white font-bold py-2 px-4 hover:bg-orange-600 transition duration-300 ease-in-out w-full flex items-center justify-center gap-2 disabled:opacity-70"
         >
-          Læg i kurv
+          {isAdding ? (
+            <>
+              <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+              Tilføjer...
+            </>
+          ) : (
+            "Læg i kurv"
+          )}
         </button>
       </div>
     </li>

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
 import { FaHeart } from "react-icons/fa";
@@ -11,11 +11,23 @@ const Header = () => {
   const favorites = useFavoritesStore((state) => state.favorites);
   const favoritesCount = favorites.length;
 
+  const animateCart = useCartStore((state) => state.animateCart);
+  const stopCartAnimation = useCartStore((state) => state.stopCartAnimation);
+
+  useEffect(() => {
+    if (animateCart) {
+      const timer = setTimeout(() => {
+        stopCartAnimation();
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [animateCart, stopCartAnimation]);
+
   return (
     <header className="sticky top-0 z-50 bg-white" style={{ gridColumn: "full-bleed" }}>
       <div className="grid grid-cols-subgrid" style={{ gridColumn: "content" }}>
         <div className="flex justify-between items-center py-4 px-2">
-          {/* Left: Logo + Product */}
           <div className="flex flex-1 sm:flex-row items-start sm:items-center gap-2 sm:gap-8">
             <Link href="/" className="flex items-center text-orange-500 text-5xl sm:text-6xl font-bold whitespace-nowrap">
               <span>B</span>
@@ -30,7 +42,6 @@ const Header = () => {
             </Link>
           </div>
 
-          {/* Right: Favorites + Cart */}
           <div className="flex items-center gap-6 sm:gap-8 ml-auto text-orange-500">
             <Link href="/favorites" className="relative text-3xl sm:text-4xl">
               <FaHeart className="hover:scale-110 transition-transform duration-200 cursor-pointer" />
@@ -38,7 +49,7 @@ const Header = () => {
             </Link>
 
             <Link href="/payment" className="relative text-4xl sm:text-5xl">
-              <IoCartOutline className="hover:scale-110 transition-transform duration-200 cursor-pointer" />
+              <IoCartOutline className={`cursor-pointer transition-transform duration-200 hover:scale-110 ${animateCart ? "animate-cart-bump" : ""}`} />
               <CartBadge />
             </Link>
           </div>
@@ -48,7 +59,6 @@ const Header = () => {
   );
 };
 
-// Badge-komponent: Viser antal varer i kurven som rød cirkel
 const CartBadge = () => {
   const cart = useCartStore((state) => state.cart);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);

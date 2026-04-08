@@ -38,57 +38,6 @@ export default function PaymentPage() {
 
   const isFormValid = formData.fullName.trim() && formData.email.trim() && formData.phone.trim() && formData.address.trim() && formData.city.trim() && formData.postalCode.trim();
 
-  // async function handlePayment() {
-  //   if (cart.length === 0) {
-  //     alert("Din kurv er tom.");
-  //     return;
-  //   }
-
-  //   setPaying(true);
-
-  //   try {
-  //     await new Promise((resolve) => setTimeout(resolve, 1500));
-
-  //     const total = cart.reduce((sum, item) => {
-  //       return sum + (item.price || 0) * (item.quantity || 0);
-  //     }, 0);
-
-  //     const orderData = {
-  //       customer: formData,
-  //       orderNumber: `BB-${Date.now()}`,
-  //       items: cart.map((item) => ({
-  //         id: item.id,
-  //         title: item.title,
-  //         price: item.price,
-  //         quantity: item.quantity,
-  //         image: item.image,
-  //       })),
-  //       total,
-  //     };
-  //     // console.log("ORDER DATA:", orderData);
-
-  //     const response = await fetch("/api/send-order-email", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(orderData),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Kunne ikke sende ordrebekræftelse");
-  //     }
-
-  //     clearCart();
-
-  //     router.push(`/success?email=${encodeURIComponent(formData.email)}&orderNumber=${orderData.orderNumber}`);
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert("Noget gik galt. Prøv igen.");
-  //   } finally {
-  //     setPaying(false);
-  //   }
-  // }
   async function handlePayment() {
     if (cart.length === 0) {
       alert("Din kurv er tom.");
@@ -195,13 +144,6 @@ export default function PaymentPage() {
             <div className="space-y-4">
               <h2 className="text-xl font-semibold text-gray-700">Betaling</h2>
 
-              {/* <div className="flex gap-3 mb-2">
-                {CardImages.map((image, index) => (
-                  <span key={index} className="px-3 py-2 bg-gray-100 rounded-md border border-gray-200">
-                    <Image src={image.src} alt={image.alt} width={36} height={24} className="h-auto w-auto" />
-                  </span>
-                ))}
-              </div> */}
               <div className="flex gap-3 mb-2">
                 {CardImages.map((image, index) => (
                   <span key={index} className="w-28 h-20 bg-gray-100 rounded-md border border-gray-200 flex items-center justify-center">
@@ -229,11 +171,18 @@ export default function PaymentPage() {
               </div>
             </div>
 
-            {/* <button onClick={handlePayment} disabled={paying} className="bg-[#F27F3D] text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600 transition duration-300 ease-in-out flex items-center justify-center gap-2 w-full disabled:opacity-70">
-              {paying ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : "Betal nu"}
-            </button> */}
-            <button onClick={handlePayment} disabled={paying || cart.length === 0 || !isFormValid} className="bg-[#F27F3D] text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600 transition duration-300 ease-in-out flex items-center justify-center gap-2 w-full disabled:opacity-50 disabled:cursor-not-allowed">
+            {/* <button onClick={handlePayment} disabled={paying || cart.length === 0 || !isFormValid} className="bg-[#F27F3D] text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600 transition duration-300 ease-in-out flex items-center justify-center gap-2 w-full disabled:opacity-50 disabled:cursor-not-allowed">
               Betal nu
+            </button> */}
+            <button onClick={handlePayment} disabled={paying || cart.length === 0 || !isFormValid} className="bg-[#F27F3D] text-white font-bold py-3 px-8 rounded-lg hover:bg-orange-600 transition duration-300 ease-in-out flex items-center justify-center gap-2 w-full disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]">
+              {paying ? (
+                <>
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Behandler...
+                </>
+              ) : (
+                "Betal nu"
+              )}
             </button>
           </div>
 
