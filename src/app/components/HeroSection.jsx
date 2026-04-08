@@ -6,6 +6,7 @@ import Button from "./Button";
 
 const HeroSection = () => {
   return (
+    // <section className="fullbleed">
     <section className="fullbleed">
       {/* Background Image */}
       <Image src={image} alt="Hero" fill className="object-cover block" priority />

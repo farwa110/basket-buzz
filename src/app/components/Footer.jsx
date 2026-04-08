@@ -1,27 +1,17 @@
-// import React from "react";
+"use client";
 
-// const Footer = () => {
-//   return (
-//     <div className="w-full">
-//       <footer className="fixed bottom-0 left-0 w-full text-center text-m text-gray-700 py-4 z-50 bg-white">&copy; {new Date().getFullYear()} BuzzBasket. All rights reserved.</footer>
-//     </div>
-//   );
-// };
-
-// export default Footer;
-
-// import React from "react";
-
-// const Footer = () => {
-//   return <footer className="w-full text-center text-m text-gray-700 py-4 bg-white">&copy; {new Date().getFullYear()} BuzzBasket. All rights reserved.</footer>;
-// };
-
-// export default Footer;
 import React from "react";
 import Link from "next/link";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  if (pathname === "/") {
+    return null;
+  }
+
   return (
     <footer className="w-full bg-gray-50 border-t border-gray-200 mt-16">
       <div className="max-w-7xl mx-auto px-4 py-10">
@@ -77,7 +67,14 @@ const Footer = () => {
         </div>
 
         {/* BOTTOM */}
-        <div className="border-t border-gray-200 mt-8 pt-6 text-center text-gray-500 text-sm">© {new Date().getFullYear()} BuzzBasket. All rights reserved.</div>
+        {/* <div className="border-t border-gray-200 mt-8 pt-6 text-center text-gray-500 text-sm">© {new Date().getFullYear()} BuzzBasket. All rights reserved.</div> */}
+        <div className="border-t border-gray-200 mt-8 pt-6 text-center text-gray-500 text-sm space-y-1">
+          <p>© {new Date().getFullYear()} BuzzBasket. All rights reserved.</p>
+
+          <p className="text-gray-400 text-xs">
+            Designed & developed by <span className="font-medium text-gray-500">Farwa Rizvi</span>
+          </p>
+        </div>
       </div>
     </footer>
   );

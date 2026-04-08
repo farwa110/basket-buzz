@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
@@ -30,7 +31,7 @@ const ThumbnailImages = ({ images = [], main }) => {
             <div key={index} className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 cursor-pointer">
               <Image src={img} alt={`Thumbnail ${index}`} fill className="rounded-lg object-cover hover:opacity-80" onClick={() => setSelectedImage(img)} />
             </div>
-          ) : null
+          ) : null,
         )}
       </div>
     </div>
