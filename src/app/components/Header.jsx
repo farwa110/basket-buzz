@@ -19,9 +19,9 @@ const Header = () => {
           <div className="flex flex-1 sm:flex-row items-start sm:items-center gap-2 sm:gap-8">
             <Link href="/" className="flex items-center text-orange-500 text-5xl sm:text-6xl font-bold whitespace-nowrap">
               <span>B</span>
-              <span className="text-2xl sm:text-3xl font-semibold ml-0">uzz</span>
-              <span>B</span>
               <span className="text-2xl sm:text-3xl font-semibold ml-0">asket</span>
+              <span>B</span>
+              <span className="text-2xl sm:text-3xl font-semibold ml-0">uzz</span>
             </Link>
 
             <Link href="/products" className="relative text-lg font-semibold text-gray-700 hover:text-orange-500 transition-colors px-10 pt-2 hidden [@media(min-width:450px)]:block">

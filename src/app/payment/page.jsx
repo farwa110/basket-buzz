@@ -209,6 +209,7 @@ export default function PaymentPage() {
                   </span>
                 ))}
               </div>
+              <p className="text-sm text-gray-500 mt-4">*This checkout flow is a visual prototype created for portfolio purposes. No real payment is processed.</p>
 
               <div>
                 <label className="block text-sm font-medium text-gray-600 mb-2">Kortnummer</label>

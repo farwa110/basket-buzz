@@ -33,8 +33,6 @@ export const metadata = {
   creator: "Farwa Rizvi",
   publisher: "Buzz Basket",
 
-  themeColor: "#F27F3D",
-
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
